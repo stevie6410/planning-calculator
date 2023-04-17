@@ -1,0 +1,71 @@
+table.routing-table {
+  tbody {
+    tr {
+      td {
+        border: 1px solid black;
+        padding: 0.5rem;
+        text-align: center;
+      }
+    }
+  }
+
+  tfoot{
+    tr {
+      th {
+        text-align: right;
+      }
+    }
+  }
+}
+
+.step-visual {
+  width: 100%;
+  display:  flex;
+  flex-direction: row;
+  * {
+    // padding: 1rem 0;
+    border: black 1px solid;
+    // flex-grow: 1;
+    font-weight: bold;
+    color: #fff;
+  }
+
+
+}
+.previous {
+  background-color: white;
+  border:  none;
+  }
+
+.queue {
+  background-color: blue;
+}
+
+.setup {
+  background-color: brown;
+}
+
+.machine {
+  background-color: purple;
+}
+
+.labour {
+  background-color: green;
+}
+
+.move {
+  background-color: orangered;
+}
+
+.single-bar {
+  width: 100%;
+  // border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+
+  .step {
+    border: 5px solid yellow;
+    display: flex;
+    flex-direction: row;
+  }
+}

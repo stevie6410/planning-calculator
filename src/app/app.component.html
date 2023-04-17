@@ -1,0 +1,182 @@
+<h1>Planning Calculator</h1>
+
+<table class="routing-table">
+  <thead>
+    <tr>
+      <th>OP Seq</th>
+      <th>Description</th>
+      <th>Queue</th>
+      <th>Labour</th>
+      <th>Machine</th>
+      <th>Setup</th>
+      <th>Move</th>
+      <!-- <th>Start</th>
+      <th>Request</th> -->
+      <th>Leadtime</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let step of steps">
+      <td>{{ step.opSeq }}</td>
+      <td>{{ step.description }}</td>
+      <td>{{ step.queue }}</td>
+      <td>{{ step.labour }}</td>
+      <td>{{ step.machine }}</td>
+      <td>{{ step.setup }}</td>
+      <td>{{ step.move }}</td>
+      <!-- <td>{{ step.startDate | amDateFormat : "DD-MMM-yy" }}</td>
+      <td>{{ step.requestDate | amDateFormat : "DD-MMM-yy" }}</td> -->
+      <td>{{ step.leadtimeHours }}</td>
+      <td [style]="{ width: '100%' }">
+        <div class="step-visual">
+          <div
+            class="previous"
+            *ngIf="step.previousTotalPercent > 0"
+            [ngStyle]="{ width: step.previousTotalPercent + '%' }"
+          ></div>
+          <div
+            class="queue"
+            *ngIf="step.queue > 0"
+            [ngStyle]="{ width: step.percentOfTotal + '%' }"
+          >
+            {{ step.queue }}
+          </div>
+          <!-- <div
+            class="setup"
+            *ngIf="step.setup > 0"
+            [ngStyle]="{ 'width': step.percentOfTotal + '%' }"
+          >
+            {{ step.setup }}
+          </div>
+          <div
+            class="machine"
+            *ngIf="step.machine > 0"
+            [ngStyle]="{ 'width': step.percentOfTotal + '%' }"
+          >
+            {{ step.machine }}
+          </div>
+          <div
+            class="labour"
+            *ngIf="step.labour > 0"
+            [ngStyle]="{ 'width': step.percentOfTotal + '%' }"
+          >
+            {{ step.labour }}
+          </div>
+          <div
+            class="move"
+            *ngIf="step.move > 0"
+            [ngStyle]="{ 'width': step.percentOfTotal + '%' }"
+          >
+            {{ step.move }}
+          </div> -->
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="7">Total LT:</th>
+      <th [style]="{ 'text-align': 'center' }">{{ totalHours }}</th>
+    </tr>
+  </tfoot>
+</table>
+
+
+<table class="routing-table">
+  <thead>
+    <tr>
+      <th>OP Seq</th>
+      <th>Description</th>
+      <th>Queue</th>
+      <th>Labour</th>
+      <th>Machine</th>
+      <th>Setup</th>
+      <th>Move</th>
+      <!-- <th>Start</th>
+      <th>Request</th> -->
+      <th>Leadtime</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let step of steps">
+      <td>{{ step.opSeq }}</td>
+      <td>{{ step.description }}</td>
+      <td>{{ step.queue }}</td>
+      <td>{{ step.labour }}</td>
+      <td>{{ step.machine }}</td>
+      <td>{{ step.setup }}</td>
+      <td>{{ step.move }}</td>
+      <!-- <td>{{ step.startDate | amDateFormat : "DD-MMM-yy" }}</td>
+      <td>{{ step.requestDate | amDateFormat : "DD-MMM-yy" }}</td> -->
+      <td>{{ step.leadtimeHours }}</td>
+      <td [style]="{ width: '100%' }">
+        <div class="step-visual">
+          <div
+            class="previous"
+            *ngIf="step.previousTotalPercent > 0"
+            [ngStyle]="{ width: step.previousTotalPercent + '%' }"
+          ></div>
+          <div
+            class="queue"
+            *ngIf="step.queue > 0"
+            [ngStyle]="{ 'width': (step.queue / totalHours) * 100 + '%' }"
+          >
+            {{ step.queue }}
+          </div>
+          <div
+            class="setup"
+            *ngIf="step.setup > 0"
+            [ngStyle]="{ 'width': (step.setup / totalHours) * 100 + '%' }"
+          >
+            {{ step.setup }}
+          </div>
+          <div
+            class="machine"
+            *ngIf="step.machine > 0"
+            [ngStyle]="{ 'width': (step.machine / totalHours) * 100 + '%' }"
+          >
+            {{ step.machine }}
+          </div>
+          <div
+            class="labour"
+            *ngIf="step.labour > 0"
+            [ngStyle]="{ 'width': (step.labour / totalHours) * 100 + '%' }"
+          >
+            {{ step.labour }}
+          </div>
+          <div
+            class="move"
+            *ngIf="step.move > 0"
+            [ngStyle]="{ 'width': (step.move / totalHours) * 100 + '%' }"
+          >
+            {{ step.move }}
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="7">Total LT:</th>
+      <th [style]="{ 'text-align': 'center' }">{{ totalHours }}</th>
+    </tr>
+  </tfoot>
+</table>
+
+<div class="single-bar">
+
+  <div *ngFor="let s of steps" class="step" [style]="{'width': s.percentOfTotal + '%'}">
+    <div class="queue" [style]="{'width': (s.queue / s.leadtimeHours) * 100  + '%'}">{{s.queue}}</div>
+    <div class="setup" [style]="{'width': (s.setup / s.leadtimeHours) * 100  + '%'}">{{s.setup}}</div>
+    <div class="machine" [style]="{'width': (s.machine / s.leadtimeHours) * 100  + '%'}">{{s.machine}}</div>
+    <div class="labour" [style]="{'width': (s.labour / s.leadtimeHours) * 100  + '%'}">{{s.labour}}</div>
+    <div class="move" [style]="{'width': (s.move / s.leadtimeHours) * 100  + '%'}">{{s.move}}</div>
+  </div>
+
+</div>
+
+<pre>
+  {{ steps | json }}
+</pre>
